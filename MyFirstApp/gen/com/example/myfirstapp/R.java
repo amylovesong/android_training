@@ -858,10 +858,19 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070003;
+        public static final int abc_search_url_text_holo=0x7f07000c;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
+        public static final int actionbar_background=0x7f070004;
+        public static final int actionbar_text=0x7f070005;
+        public static final int tab_selected=0x7f070007;
+        public static final int tab_selected_focused=0x7f070009;
+        public static final int tab_selected_pressed=0x7f07000b;
+        public static final int tab_unselected=0x7f070006;
+        public static final int tab_unselected_focused=0x7f070008;
+        public static final int tab_unselected_pressed=0x7f07000a;
+        public static final int translucence=0x7f070003;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1076,8 +1085,9 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int ic_action_search=0x7f020057;
-        public static final int ic_launcher=0x7f020058;
+        public static final int actionbar_tab_indicator=0x7f020057;
+        public static final int ic_action_search=0x7f020058;
+        public static final int ic_launcher=0x7f020059;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1091,19 +1101,21 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_search=0x7f05003f;
-        public static final int action_settings=0x7f05003e;
+        public static final int action_search=0x7f050046;
+        public static final int action_settings=0x7f050045;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
+        public static final int btn_go_overlay=0x7f05003f;
+        public static final int btn_switch=0x7f05003e;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
-        public static final int container=0x7f05003d;
+        public static final int container=0x7f05003c;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
-        public static final int edit_message=0x7f05003c;
+        public static final int edit_message=0x7f050040;
         public static final int edit_query=0x7f050030;
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
@@ -1139,8 +1151,13 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+        public static final int textView1=0x7f05003d;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
+        public static final int txv_album=0x7f050042;
+        public static final int txv_all_music=0x7f050043;
+        public static final int txv_artist=0x7f050044;
+        public static final int txv_info=0x7f050041;
         public static final int up=0x7f050021;
         public static final int useLogo=0x7f050003;
         public static final int withText=0x7f05000c;
@@ -1195,10 +1212,15 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
-        public static final int activity_display_message=0x7f030018;
-        public static final int activity_main=0x7f030019;
-        public static final int fragment_display_message=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int activity_detail_all_music=0x7f030018;
+        public static final int activity_display_message=0x7f030019;
+        public static final int activity_main=0x7f03001a;
+        public static final int activity_overlay_actionbar=0x7f03001b;
+        public static final int fragment_album=0x7f03001c;
+        public static final int fragment_all_music=0x7f03001d;
+        public static final int fragment_artist=0x7f03001e;
+        public static final int fragment_display_message=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
     }
     public static final class menu {
         public static final int display_message=0x7f0c0000;
@@ -1245,13 +1267,23 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int aciton_search=0x7f0a0013;
+        public static final int aciton_search=0x7f0a0015;
         public static final int action_settings=0x7f0a0010;
         public static final int app_name=0x7f0a000d;
         public static final int button_send=0x7f0a000f;
+        public static final int button_text_go_overlay_activity=0x7f0a001d;
+        public static final int button_text_hide_the_action_bar=0x7f0a001b;
+        public static final int button_text_show_the_action_bar=0x7f0a001c;
         public static final int edit_message=0x7f0a000e;
-        public static final int hello_world=0x7f0a0012;
+        public static final int hello_world=0x7f0a0014;
+        public static final int tab_detail_all=0x7f0a0019;
+        public static final int tab_detail_artist=0x7f0a001a;
+        public static final int tab_text_album=0x7f0a0018;
+        public static final int tab_text_all=0x7f0a0016;
+        public static final int tab_text_artist=0x7f0a0017;
+        public static final int title_activity_detail=0x7f0a0012;
         public static final int title_activity_display_message=0x7f0a0011;
+        public static final int title_activity_overlay_action_bar=0x7f0a0013;
     }
     public static final class style {
         /** 
@@ -1280,6 +1312,29 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0b008c;
+        /**  the theme applied to the application or activity 
+ Support library compatibility 
+ <item name="actionBarStyle">@style/MyActionBar</item> 
+         */
+        public static final int CustomActionBarThemeBG=0x7f0b008d;
+        public static final int CustomActionBarThemeDetail=0x7f0b008f;
+        public static final int CustomActionBarThemeOverlayActionBar=0x7f0b0090;
+        public static final int CustomActionBarThemeTT=0x7f0b008e;
+        /**  ActionBar styles 
+ Support library compatibility 
+ <item name="background">@drawable/abc_ic_go</item> 
+         */
+        public static final int MyActionBarBG=0x7f0b0091;
+        public static final int MyActionBarTT=0x7f0b0092;
+        /**  ActionBar tabs text styles 
+         */
+        public static final int MyActionBarTabText=0x7f0b0094;
+        /**  ActionBar tabs styles 
+         */
+        public static final int MyActionBarTabs=0x7f0b0095;
+        /**  ActionBar title text 
+         */
+        public static final int MyActionBarTitleText=0x7f0b0093;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0b0063;

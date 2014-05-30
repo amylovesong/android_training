@@ -4,9 +4,22 @@
     <string name="app_name">My First App</string>
     <string name="edit_message">Enter a Message</string>
     <string name="button_send">Send</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
     <string name="title_activity_display_message">MyMessage</string>
+    <string name="title_activity_detail">详情</string>
+    <string name="title_activity_overlay_action_bar">OverlayActionBar</string>
     <string name="hello_world">Hello World!</string>
-    <string name="aciton_search">Search</string>
+    <string name="aciton_search">搜索</string>
+    
+    <string name="tab_text_all">全部</string>
+    <string name="tab_text_artist">歌手</string>
+    <string name="tab_text_album">专辑</string>
+    
+    <string name="tab_detail_all">全部列表</string>
+    <string name="tab_detail_artist">歌手列表</string>
+    
+    <string name="button_text_hide_the_action_bar">隐藏ActionBar</string>
+    <string name="button_text_show_the_action_bar">显示ActionBar</string>
+    <string name="button_text_go_overlay_activity">跳到浮层ActionBar页面</string>
 
 </resources>
