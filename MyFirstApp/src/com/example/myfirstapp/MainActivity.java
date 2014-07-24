@@ -9,6 +9,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,11 +17,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	private static final String TAG = MainActivity.class.getSimpleName();
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		/*
 		 * setContentView(R.layout.activity_main);
@@ -76,6 +79,30 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main_activity_actions, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	protected void onResume() {
+		Log.d(TAG, "onResume");
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		Log.d(TAG, "onPause");
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		Log.d(TAG, "onStop");
+		super.onStop();
+	}
+
+	@Override
+	protected void onDestroy() {
+		Log.d(TAG, "onDestroy");
+		super.onDestroy();
 	}
 
 	@Override
@@ -145,6 +172,8 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onTabSelected(Tab tab, FragmentTransaction ft) {
+			Log.d(TAG, "onTabSelected tab=" + tab.getText() + " mFragment="
+					+ mFragment);
 			// Check if the fragment is already initialized
 			if (mFragment == null) {
 				// If no, initialize and add it to the activity
@@ -158,6 +187,8 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+			Log.d(TAG, "onTabUnselected tab=" + tab.getText() + " mFragment="
+					+ mFragment);
 			if (mFragment != null) {
 				// Detach the fragment, because another one is being attached
 				ft.detach(mFragment);
