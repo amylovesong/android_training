@@ -1,7 +1,5 @@
 package com.sun.training.actionbar;
 
-import com.sun.training.R;
-
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -18,14 +16,25 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.sun.training.R;
+
 public class MainActivity extends Activity {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	public final static String EXTRA_MESSAGE = "com.sun.trainingMESSAGE";
 
+	private ActionBar actionBar;
+	private Tab tab;
+
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		Log.d(TAG, "onCreate");
+		Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
+		// FIXME if it's being restored from a previous state, clear the
+		// state stored by system and create new tabs
+		if (savedInstanceState != null) {
+			savedInstanceState = null;
+			Log.d(TAG, "onCreate clear savedInstanceState");
+		}
 		super.onCreate(savedInstanceState);
 		/*
 		 * setContentView(R.layout.activity_main);
@@ -41,7 +50,7 @@ public class MainActivity extends Activity {
 		// android.R.id.content as the container for each fragment
 
 		// setup action bar for tabs
-		ActionBar actionBar = getActionBar();
+		actionBar = getActionBar();
 		actionBar.setTitle("Action Bar");
 		// 注掉后无法显示出Tab
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -50,7 +59,7 @@ public class MainActivity extends Activity {
 		// Up button 是否可用
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		Tab tab = actionBar
+		tab = actionBar
 				.newTab()
 				.setText(R.string.tab_text_all)
 				.setTabListener(
@@ -81,6 +90,12 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main_activity_actions, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		Log.d(TAG, "onSaveInstanceState " + outState);
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override
