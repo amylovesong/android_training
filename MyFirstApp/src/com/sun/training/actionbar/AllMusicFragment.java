@@ -1,6 +1,9 @@
-package com.example.myfirstapp;
+package com.sun.training.actionbar;
+
+import com.sun.training.R;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class ArtistFragment extends Fragment {
-
+public class AllMusicFragment extends Fragment {
 	private View mContentView;
 	private TextView mTextView;
 
@@ -17,7 +19,7 @@ public class ArtistFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		mContentView = inflater.inflate(R.layout.fragment_artist, container,
+		mContentView = inflater.inflate(R.layout.fragment_all_music, container,
 				false);
 		return mContentView;
 	}
@@ -26,24 +28,17 @@ public class ArtistFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		mTextView = (TextView) mContentView.findViewById(R.id.txv_artist);
+		mTextView = (TextView) mContentView.findViewById(R.id.txv_all_music);
 		if (mTextView != null) {
-			mTextView.setText(ArtistFragment.class.getSimpleName());
-		}
-
-		if (mContentView != null) {
-			mContentView.setOnClickListener(new OnClickListener() {
+			mTextView.setText(AllMusicFragment.class.getSimpleName());
+			mTextView.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					if (getActivity().getActionBar().isShowing()) {
-						getActivity().getActionBar().hide();
-					} else {
-						getActivity().getActionBar().show();
-					}
+					startActivity(new Intent(getActivity(),
+							DetailActivity.class));
 				}
 			});
 		}
 	}
-
 }

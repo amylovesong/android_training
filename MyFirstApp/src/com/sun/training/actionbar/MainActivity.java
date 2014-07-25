@@ -1,4 +1,6 @@
-package com.example.myfirstapp;
+package com.sun.training.actionbar;
+
+import com.sun.training.R;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static final String TAG = MainActivity.class.getSimpleName();
-	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+	public final static String EXTRA_MESSAGE = "com.sun.trainingMESSAGE";
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override

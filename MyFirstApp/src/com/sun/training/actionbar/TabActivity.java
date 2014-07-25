@@ -1,4 +1,4 @@
-package com.example.myfirstapp;
+package com.sun.training.actionbar;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+
+import com.sun.training.R;
 
 public class TabActivity extends Activity {
 

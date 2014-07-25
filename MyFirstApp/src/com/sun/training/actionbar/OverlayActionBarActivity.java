@@ -1,4 +1,6 @@
-package com.example.myfirstapp;
+package com.sun.training.actionbar;
+
+import com.sun.training.R;
 
 import android.app.Activity;
 import android.os.Bundle;
