@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <application
@@ -17,6 +17,10 @@
             android:name=".actionbar.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/CustomActionBarThemeBG" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".actionbar.DisplayMessageActivity"
@@ -40,10 +44,6 @@
             
         </activity>
         <activity android:name=".fragment.NewsArticlesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         
     </application>
