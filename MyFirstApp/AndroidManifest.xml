@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -41,9 +43,20 @@
             
         </activity>
         <activity android:name=".fragment.NewsArticlesActivity">
-            <intent-filter>
+
+        </activity>
+        <activity android:name=".nfc.NfcActivity">
+			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="com.sun.training.nfc.ViewActivity"
+            android:label="Android Beam Viewer" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
