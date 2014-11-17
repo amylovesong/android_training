@@ -25,19 +25,21 @@ public class SavingData {
 	public static void sp(Context context, Activity activity) {
 		// get a handle to a SharedPreferences
 		// identify the file name
-		SharedPreferences sharedPref = context.getSharedPreferences(
-				preference_file_key, Context.MODE_PRIVATE);
+		SharedPreferences
+		// sharedPref = context.getSharedPreferences(
+//				preference_file_key, Context.MODE_PRIVATE);
 
-		// if we need just one shared preference file for activity
-		sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+		 // if we need just one shared preference file for activity
+		 sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
 
 		// write to Shared Preferences
 		SharedPreferences.Editor editor = sharedPref.edit();
-		editor.putInt("key", 0);
+		editor.putInt("key", 1);
 		editor.commit();
 
 		// read from Shared Preferences
 		long value = sharedPref.getInt("key", -1);
+		Log.d(TAG, "sp getInt value=" + value);
 	}
 
 	/* --save files-- */
