@@ -25,6 +25,7 @@ public class StartOtherAppActivity extends Activity implements OnClickListener {
 	private Button btnViewWebpage;
 	private Button btnEmail;
 	private Button btnCalendarEvent;
+	private Button btnGetResult;
 
 	private String phoneNumber = "13571889521";
 	private String locationInfo = "0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California";
@@ -44,6 +45,7 @@ public class StartOtherAppActivity extends Activity implements OnClickListener {
 		btnViewWebpage.setOnClickListener(this);
 		btnEmail.setOnClickListener(this);
 		btnCalendarEvent.setOnClickListener(this);
+		btnGetResult.setOnClickListener(this);
 	}
 
 	private void findView() {
@@ -53,6 +55,7 @@ public class StartOtherAppActivity extends Activity implements OnClickListener {
 		btnViewWebpage = (Button) findViewById(R.id.btn_view_webpage);
 		btnEmail = (Button) findViewById(R.id.btn_email);
 		btnCalendarEvent = (Button) findViewById(R.id.btn_calendar_event);
+		btnGetResult = (Button) findViewById(R.id.btn_get_result);
 	}
 
 	@Override
@@ -68,6 +71,8 @@ public class StartOtherAppActivity extends Activity implements OnClickListener {
 			intent = createEmailIntent();
 		} else if (v == btnCalendarEvent) {
 			intent = createCalendarIntent();
+		} else if (v == btnGetResult) {
+			intent = createGetResultIntent();
 		}
 		if (intent != null && isIntentSafe(intent)) {
 			startActivity(intent);
@@ -146,5 +151,10 @@ public class StartOtherAppActivity extends Activity implements OnClickListener {
 		calendarIntent.putExtra(Events.EVENT_LOCATION, "supermarket");
 
 		return calendarIntent;
+	}
+
+	private Intent createGetResultIntent() {
+		Intent getResultIntent=new Intent(getApplicationContext(), GetResultActivity.class);
+		return getResultIntent;
 	}
 }

@@ -7,16 +7,20 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
+
         <!-- Action Bar -->
         <activity
             android:name=".actionbar.MainActivity"
@@ -32,44 +36,50 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.sun.training.actionbar.MainActivity" />
         </activity>
-        <activity android:name=".actionbar.DetailActivity"
+        <activity
+            android:name=".actionbar.DetailActivity"
             android:label="@string/title_activity_detail"
             android:parentActivityName="com.sun.training.actionbar.MainActivity"
-            android:theme="@style/CustomActionBarThemeDetail" > 
+            android:theme="@style/CustomActionBarThemeDetail" >
         </activity>
-        <activity android:name=".actionbar.OverlayActionBarActivity"
+        <activity
+            android:name=".actionbar.OverlayActionBarActivity"
             android:label="@string/title_activity_overlay_action_bar"
             android:parentActivityName="com.sun.training.actionbar.MainActivity"
             android:theme="@style/CustomActionBarThemeOverlayActionBar" >
         </activity>
-        
+
         <!-- Fragment -->
-        <activity android:name=".fragment.NewsArticlesActivity">
+        <activity android:name=".fragment.NewsArticlesActivity" >
         </activity>
-        
+
         <!-- NFC -->
-        <activity android:name=".nfc.NfcActivity">
+        <activity android:name=".nfc.NfcActivity" >
         </activity>
-        <activity android:name="com.sun.training.nfc.ViewActivity"
+        <activity
+            android:name="com.sun.training.nfc.ViewActivity"
             android:label="Android Beam Viewer" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+
         <!-- Saving Data -->
-		<activity android:name=".savingdata.TestSavingDataActivity">
+        <activity android:name=".savingdata.TestSavingDataActivity" >
         </activity>
-        
-		<!-- Interacting with other Apps -->
-		<activity android:name=".interacting_between_apps.StartOtherAppActivity">
-			<intent-filter>
+
+        <!-- Interacting with other Apps -->
+        <activity android:name=".interacting_between_apps.StartOtherAppActivity" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+        <activity android:name=".interacting_between_apps.GetResultActivity" >
+        </activity>
     </application>
 
 </manifest>
