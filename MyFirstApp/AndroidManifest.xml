@@ -60,6 +60,10 @@
         
         <!-- Saving Data -->
 		<activity android:name=".savingdata.TestSavingDataActivity">
+        </activity>
+        
+		<!-- Interacting with other Apps -->
+		<activity android:name=".interacting_between_apps.StartOtherAppActivity">
 			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

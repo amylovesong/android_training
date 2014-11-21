@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tel" />
+
+    <Button
+        android:id="@+id/btn_view_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Map" />
+
+    <Button
+        android:id="@+id/btn_view_webpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Webpage" />
+
+    <Button
+        android:id="@+id/btn_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email" />
+    
+	<Button
+        android:id="@+id/btn_calendar_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calendar Event" />
+
+</LinearLayout>
