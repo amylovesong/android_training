@@ -25,6 +25,7 @@ public class GetResultActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_send_user_to_another_app);
 
 		findViewById(R.id.layout_first_page).setVisibility(View.GONE);
+		findViewById(R.id.layout_second_page).setVisibility(View.VISIBLE);
 		btnPickContact = (Button) findViewById(R.id.btn_pick_contact);
 		btnPickContact.setOnClickListener(this);
 		txvResult = (TextView) findViewById(R.id.txv_result);
@@ -42,7 +43,10 @@ public class GetResultActivity extends Activity implements OnClickListener {
 				Uri.parse("content://contacts"));
 		// Show user only contacts w/ phone numbers
 		pickContactIntent.setType(Phone.CONTENT_TYPE);
-		startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+		// Check whether there is an App can resolve this Intent
+		if (pickContactIntent.resolveActivity(getPackageManager()) != null) {
+			startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+		}
 	}
 
 	@Override
@@ -56,12 +60,13 @@ public class GetResultActivity extends Activity implements OnClickListener {
 				// We only need the NUMBER column, because there will be only
 				// one row in the result
 				String[] projection = { Phone.NUMBER };
-				new CursorLoader(getApplicationContext(), contactUri,
-						projection, null, null, null);
-				Cursor cursor = getContentResolver().query(contactUri,
-						projection, null, null, null);
+				CursorLoader cursorLoader = new CursorLoader(
+						getApplicationContext(), contactUri, projection, null,
+						null, null);
+				Cursor cursor = cursorLoader.loadInBackground();
 				cursor.moveToFirst();
 
+				// Retrieve the phone number from the NUMBER column
 				int columnIndex = cursor.getColumnIndex(Phone.NUMBER);
 				String number = cursor.getString(columnIndex);
 				txvResult.setText("The picked contact: " + number);
