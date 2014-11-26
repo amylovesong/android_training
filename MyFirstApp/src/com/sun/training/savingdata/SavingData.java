@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 public class SavingData {
 	private static final String TAG = SavingData.class.getSimpleName();
@@ -27,10 +28,10 @@ public class SavingData {
 		// identify the file name
 		SharedPreferences
 		// sharedPref = context.getSharedPreferences(
-//				preference_file_key, Context.MODE_PRIVATE);
+		// preference_file_key, Context.MODE_PRIVATE);
 
 		 // if we need just one shared preference file for activity
-		 sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+		sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
 
 		// write to Shared Preferences
 		SharedPreferences.Editor editor = sharedPref.edit();
@@ -43,16 +44,23 @@ public class SavingData {
 	}
 
 	/* --save files-- */
-	private static String filename = "savefiles_on_internal_storage";
+	private static String filename = "myfile";
 
+	// Internal storage
 	public static void saveFilesOnInternalStorage(Context context) {
-		// save a file on internal storage
-		// File
-		File file = new File(context.getFilesDir(), filename);
-		// FileOutputStream
-		String fileContent = "amylovesong";
-		FileOutputStream outputStream;
 		try {
+			String fileContent = "amylovesong\n";
+			FileOutputStream outputStream;
+			// // --create File instance to get a FileOutputStream
+			// File file;
+			// // ----1.getFilesDir
+			// file = new File(context.getFilesDir(), filename);
+			// // ----2.getCacheDir(cache files)
+			// file = File.createTempFile(filename, null,
+			// context.getCacheDir());
+			// outputStream = new FileOutputStream(file, true);
+
+			// --openFileOutput to get a FileOutputStream
 			outputStream = context.openFileOutput(filename,
 					Context.MODE_PRIVATE);
 			outputStream.write(fileContent.getBytes());
@@ -62,18 +70,26 @@ public class SavingData {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// cache files
-		try {
-			file = File.createTempFile(filename, null, context.getCacheDir());
-		} catch (IOException e) {
-			e.printStackTrace();
+	}
+
+	// External storage
+	public static void saveFilesOnExternalStorage(Context context) {
+		if (isExternalStorageWritable()) {
+			String albumName = "syz";
+			File file;
+			if (context != null) {
+				file = getAlbumStorageDir(context, albumName);
+			} else {
+				file = getAlbumStorageDir(albumName);
+			}
+			querySpace(file);
+		} else {
+			Log.e(TAG, "External storage is not writable!");
 		}
 	}
 
 	public static void saveFilesOnExternalStorage() {
-		if (isExternalStorageWritable()) {
-			querySpace(getAlbumStorageDir("syz"));
-		}
+		saveFilesOnExternalStorage(null);
 	}
 
 	private static boolean isExternalStorageWritable() {
@@ -93,6 +109,7 @@ public class SavingData {
 		return false;
 	}
 
+	// Public directory
 	public static File getAlbumStorageDir(String albumName) {
 		File file = new File(
 				Environment
@@ -104,9 +121,10 @@ public class SavingData {
 		return file;
 	}
 
+	// Private directory
 	public static File getAlbumStorageDir(Context context, String albumName) {
 		File file = new File(
-				context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+				context.getExternalFilesDir(Environment.DIRECTORY_MUSIC),
 				albumName);
 		if (!file.mkdirs()) {
 			Log.e(TAG, "Directory not created");
@@ -115,14 +133,20 @@ public class SavingData {
 	}
 
 	public static void querySpace(File file) {
-		Log.d(TAG, "totalSpace: " + file.getTotalSpace() + " freeSpace: "
-				+ file.getFreeSpace());
+		long totalSpace = file.getTotalSpace();
+		long freeSpace = file.getFreeSpace();
+		Log.d(TAG, "totalSpace: " + totalSpace / (1024 * 1024) + "MB"
+				+ " freeSpace: " + freeSpace / (1024 * 1024) + "MB");
 	}
 
-	public static void deleteFile(Context context, File file) {
+	public static void deleteFile(File file) {
 		file.delete();
-		// or
-		context.deleteFile(file.getName());
+	}
+
+	// If the file is saved on internal storage, you can also ask the
+	// Context to locate and delete a file by calling deleteFile():
+	public static void deleteFile(Context context, String fileName) {
+		context.deleteFile(fileName);
 	}
 
 	/* saving data in SQL database */

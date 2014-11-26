@@ -5,11 +5,10 @@
     android:orientation="vertical"
     android:gravity="center" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <Button
+        android:id="@+id/btn_saving_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saving data"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="Saving data" />
 
 </LinearLayout>

@@ -67,45 +67,52 @@
         </activity>
 
         <!-- Saving Data -->
-        <activity android:name=".savingdata.TestSavingDataActivity" >
-        </activity>
-
-        <!-- Interacting with other Apps -->
-        <activity android:name=".interacting_between_apps.StartOtherAppActivity" >
+        <activity android:name="com.sun.training.savingdata.TestSavingDataActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Interacting with other Apps -->
+        <activity android:name=".interacting_between_apps.StartOtherAppActivity" >
+        </activity>
         <activity android:name=".interacting_between_apps.GetResultActivity" >
         </activity>
         <activity android:name=".interacting_between_apps.ShareActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
-                <data android:mimeType="image/*"/>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="image/*" />
             </intent-filter>
-            <!-- If any two pairs of action and data are mutually exclusive in their 
+            <!--
+                 If any two pairs of action and data are mutually exclusive in their 
 				behavior, you should create separate intent filters to specify which actions
-				are acceptable when paired with which data types. -->
-			<!-- filter for sending text; accepts SENDTO action with sms URI schemes -->
-			<intent-filter>
-			    <action android:name="android.intent.action.SENDTO"/>
-			    <category android:name="android.intent.category.DEFAULT"/>
-			    <data android:scheme="sms"/>
-			    <data android:scheme="smsto"/>
-			</intent-filter>
-			<!-- filter for sending text or image; accepts SEND action and text or image data -->
-			<intent-filter>
-			    <action android:name="android.intent.action.SEND"/>
-			    <category android:name="android.intent.category.DEFAULT"/>
-			    <data android:mimeType="image/*"/>
-			    <data android:mimeType="text/plain"/>
-			</intent-filter>
+				are acceptable when paired with which data types.
+            -->
+            <!-- filter for sending text; accepts SENDTO action with sms URI schemes -->
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+            </intent-filter>
+            <!-- filter for sending text or image; accepts SEND action and text or image data -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
         </activity>
-        
     </application>
 
 </manifest>
