@@ -68,11 +68,6 @@
 
         <!-- Saving Data -->
         <activity android:name="com.sun.training.savingdata.TestSavingDataActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- Interacting with other Apps -->
@@ -89,11 +84,9 @@
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="image/*" />
             </intent-filter>
-            <!--
-                 If any two pairs of action and data are mutually exclusive in their 
+            <!-- If any two pairs of action and data are mutually exclusive in their 
 				behavior, you should create separate intent filters to specify which actions
-				are acceptable when paired with which data types.
-            -->
+				are acceptable when paired with which data types. -->
             <!-- filter for sending text; accepts SENDTO action with sms URI schemes -->
             <intent-filter>
                 <action android:name="android.intent.action.SENDTO" />
@@ -113,6 +106,16 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <!-- Displaying Bitmaps Efficiently -->
+        <activity android:name="com.sun.training.display_bitmap.DisplayBitmapActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
