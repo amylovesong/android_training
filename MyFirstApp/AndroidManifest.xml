@@ -14,6 +14,9 @@
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
+    <uses-feature 
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -115,14 +118,18 @@
         </receiver>
         <activity android:name=".audio_playback.ManageAudioPlaybackActivity" >
         </activity>
-
-        <!-- Displaying Bitmaps Efficiently -->
-        <activity android:name="com.sun.training.display_bitmap.DisplayBitmapActivity" >
+        
+        <!-- Capturing Photos -->
+        <activity android:name="com.sun.training.capture_photo.TakePhotosActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- Displaying Bitmaps Efficiently -->
+        <activity android:name="com.sun.training.display_bitmap.DisplayBitmapActivity" >
         </activity>
     </application>
 
