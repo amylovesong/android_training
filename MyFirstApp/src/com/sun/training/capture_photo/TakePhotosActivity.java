@@ -15,19 +15,26 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.VideoView;
 
 import com.sun.training.R;
 
 public class TakePhotosActivity extends Activity implements OnClickListener {
 	static final int REQUEST_IMAGE_CAPTURE = 1;
+	static final int REQUEST_VIDEO_CAPTURE = 2;
 	final String txtCapturePhoto = "Capture photo";
 	final String txtScanAndDisplay = "Scan and Display";
+	final String txtRecordVideo = "Record video";
+	final String txtPlay = "Play";
 	
 	ImageView mImageView;
 	Button btn;
-
+	VideoView mVideoView;
+	
 	String mCurrentPhotoPath;
 
 	@Override
@@ -39,6 +46,10 @@ public class TakePhotosActivity extends Activity implements OnClickListener {
 		btn.setText(txtCapturePhoto);
 		mImageView = (ImageView) findViewById(R.id.img_common);
 		btn.setOnClickListener(this);
+
+		// Record videos
+		btn.setText(txtRecordVideo);
+		addVideoView();
 	}
 
 	private void dispatchTakePictureIntent() {
@@ -62,32 +73,6 @@ public class TakePhotosActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-			// --Get the thumbnail
-			// Bundle extras = data.getExtras();
-			// Bitmap imageBitmap = (Bitmap) extras.get("data");
-			// mImageView.setImageBitmap(imageBitmap);
-
-			btn.setText(txtScanAndDisplay);
-		}
-	}
-
-	@Override
-	public void onClick(View v) {
-		if (v instanceof Button) {
-			if (((Button) v).getText().equals(txtCapturePhoto)) {
-				dispatchTakePictureIntent();
-			} else if (((Button) v).getText().equals(txtScanAndDisplay)) {
-				// --Add the photo to a gallery
-				galleryAddPic();
-				// --Decode a scaled image
-				setPic();
-			}
-		}
-	}
-
 	private File createImageFile() throws IOException {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
 				.format(new Date());
@@ -96,7 +81,7 @@ public class TakePhotosActivity extends Activity implements OnClickListener {
 				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 		File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 		// Save a file:path for use with ACTION_VIEW intents
-		mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+		mCurrentPhotoPath = image.getAbsolutePath();
 
 		return image;
 	}
@@ -127,5 +112,66 @@ public class TakePhotosActivity extends Activity implements OnClickListener {
 
 		Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
 		mImageView.setImageBitmap(bitmap);
+	}
+
+	private void dispatchTakeVideoIntent() {
+		Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+		if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+			startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+		}
+	}
+
+	private void addVideoView() {
+		mVideoView = new VideoView(getApplicationContext());
+		LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.MATCH_PARENT);
+		((ViewGroup) findViewById(R.id.layout_common)).addView(mVideoView,
+				params2);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+			if (data != null) {
+				// --Get the thumbnail
+				Bundle extras = data.getExtras();
+				Bitmap imageBitmap = (Bitmap) extras.get("data");
+				mImageView.setImageBitmap(imageBitmap);
+			} else {// --When set output Uri in Intent, there is no Intent
+					// result
+				btn.setText(txtScanAndDisplay);
+			}
+		}
+
+		if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+			if (data != null) {
+				Uri videoUri = data.getData();
+				mVideoView.setVideoURI(videoUri);
+				mVideoView.start();
+				btn.setText(txtPlay);
+			}
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (v instanceof Button) {
+			String txt = ((Button) v).getText().toString();
+			if (txt.equals(txtCapturePhoto)) {
+				dispatchTakePictureIntent();
+			} else if (txt.equals(txtScanAndDisplay)) {
+				// --Add the photo to a gallery
+				galleryAddPic();
+				// --Decode a scaled image
+				setPic();
+			} else if (txt.equals(txtRecordVideo)) {
+				dispatchTakeVideoIntent();
+			} else if (txt.equals(txtPlay)) {
+				if (!mVideoView.isPlaying()) {
+					mVideoView.start();
+				}
+			}
+		}
 	}
 }
