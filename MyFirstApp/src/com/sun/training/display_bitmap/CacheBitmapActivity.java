@@ -55,14 +55,26 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 		final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 		// use 1/8th of the available memory for this memory cache
 		final int cacheSize = maxMemory / 8;
-		mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
-			@Override
-			protected int sizeOf(String key, Bitmap value) {
-				// the cache size will be measured in kilobytes rather than
-				// number of items
-				return value.getByteCount() / 1024;
-			}
-		};
+
+		// --use a fragment which is preserved by calling
+		// setRetainInstance(true)
+		RetainFragment retainFragment = RetainFragment
+				.findOrCreateRetainFragment(getFragmentManager());
+		mMemoryCache = retainFragment.mRetainedCache;
+		if (mMemoryCache == null) {
+			mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+				@Override
+				protected int sizeOf(String key, Bitmap value) {
+					// the cache size will be measured in kilobytes rather than
+					// number of items
+					return value.getByteCount() / 1024;
+				}
+			};
+			retainFragment.mRetainedCache = mMemoryCache;
+		} else {
+			Log.d(TAG, "mMemoryCache is retained by RetainFragment");
+		}
+
 		// ------Initialize disk cache on background thread---------
 		File cacheDir = getDiskCacheDir(this, DISK_CACHE_SUBDIR);
 		new InitDiskCacheTask().execute(cacheDir);
