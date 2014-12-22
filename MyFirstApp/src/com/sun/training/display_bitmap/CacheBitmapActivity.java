@@ -1,7 +1,6 @@
 package com.sun.training.display_bitmap;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -65,7 +64,7 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 			}
 		};
 		// ------Initialize disk cache on background thread---------
-		File cacheDir=getDiskCacheDir(this, DISK_CACHE_SUBDIR);
+		File cacheDir = getDiskCacheDir(this, DISK_CACHE_SUBDIR);
 		new InitDiskCacheTask().execute(cacheDir);
 	}
 
@@ -135,8 +134,10 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 			if (mDiskLruCache != null) {
 				try {
 					DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
-					InputStream is = snapshot.getInputStream(0);
-					return BitmapFactory.decodeStream(is);
+					if (snapshot != null) {
+						InputStream is = snapshot.getInputStream(0);
+						return BitmapFactory.decodeStream(is);
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -163,7 +164,6 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 
 	public class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
 		private final WeakReference<ImageView> imageViewReference;
-		public int data = 0;
 
 		public BitmapWorkerTask(ImageView imageView) {
 			imageViewReference = new WeakReference<ImageView>(imageView);
@@ -171,13 +171,23 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected Bitmap doInBackground(Integer... params) {
-			data = params[0];
-			final Bitmap bitmap = DisplayBitmapUtils
-					.decodeSampledBitmapFromResource(
-					imageViewReference.get().getContext().getResources(), data,
-					100, 100);
-			// update code to add entries to the memory cache
-			addBitmapToMemoryCache(String.valueOf(data), bitmap);
+			final String key = String.valueOf(params[0]);
+			// check disk cache in background thread
+			Bitmap bitmap = getBitmapFromDiskCache(key);
+			Log.d(TAG, "doInBackground getBitmapFromDiskCache:" + bitmap);
+			if (bitmap == null) {// not found in disk cache
+				// process as normal
+				bitmap = DisplayBitmapUtils.decodeSampledBitmapFromResource(
+						imageViewReference.get().getContext().getResources(),
+						params[0], 100, 100);
+				Log.d(TAG, "doInBackground decodeSampledBitmapFromResource");
+			}
+
+			// // update code to add entries to the memory cache
+			// addBitmapToMemoryCache(String.valueOf(params[0]), bitmap);
+
+			// add final bitmap to caches
+			addBitmapToCache(key, bitmap);
 
 			return bitmap;
 		}
@@ -195,13 +205,13 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
-	
+
 	class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
 
 		@Override
 		protected Void doInBackground(File... params) {
 			synchronized (mDiskCacheLock) {
-				File cacheDir=params[0];
+				File cacheDir = params[0];
 				try {
 					mDiskLruCache = DiskLruCache.open(cacheDir, 10, 1,
 							DISK_CACHE_SIZE);
@@ -211,9 +221,9 @@ public class CacheBitmapActivity extends Activity implements OnClickListener {
 					e.printStackTrace();
 				}
 			}
-			
+
 			return null;
 		}
-		
+
 	}
 }
