@@ -131,15 +131,17 @@
         
         <!-- Print Content -->
         <activity android:name="com.sun.training.print_content.PrintContentActivity">
+        </activity>
+
+        <!-- Displaying Bitmaps Efficiently -->
+        <activity android:name="com.sun.training.display_bitmap.DisplayBitmapActivity" >
+        </activity>
+        <activity android:name="com.sun.training.display_bitmap.CacheBitmapActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Displaying Bitmaps Efficiently -->
-        <activity android:name="com.sun.training.display_bitmap.DisplayBitmapActivity" >
         </activity>
     </application>
 
