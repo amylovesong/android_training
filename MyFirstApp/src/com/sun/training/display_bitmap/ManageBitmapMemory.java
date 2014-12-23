@@ -3,9 +3,12 @@ package com.sun.training.display_bitmap;
 import java.lang.ref.SoftReference;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.drawable.BitmapDrawable;
@@ -116,7 +119,72 @@ public class ManageBitmapMemory {
 		 * @return
 		 */
 		public Bitmap getBitmapFromReusableSet(Options options) {
+			Bitmap bitmap = null;
 
+			if (mReusableBitmaps != null && !mReusableBitmaps.isEmpty()) {
+				synchronized (mReusableBitmaps) {
+					final Iterator<SoftReference<Bitmap>> iterator = mReusableBitmaps
+							.iterator();
+					Bitmap item;
+					while (iterator.hasNext()) {
+						item = iterator.next().get();
+						if (item != null && item.isMutable()) {
+							// check to see it the item can be used for inBitmap
+							if (canUseForInBitmap(item, options)) {
+								bitmap = item;
+								// remove from reusable set so it can't be used
+								// again.
+								iterator.remove();
+								break;
+							}
+						} else {
+							// remove from the set if the reference has been
+							// cleared
+							iterator.remove();
+						}
+					}
+
+				}
+			}
+
+			return bitmap;
+		}
+
+		@SuppressLint("NewApi")
+		private boolean canUseForInBitmap(Bitmap candidate,
+				Options targetOptions) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				// From Android 4.4 onward we can reuse if the byte size of
+				// the new bitmap is smaller than the reusable bitmap candidate
+				// allocation byte count
+				int width = targetOptions.outWidth / targetOptions.inSampleSize;
+				int height = targetOptions.outHeight
+						/ targetOptions.inSampleSize;
+				int byteCount = width * height
+						* getBytesPerPixel(candidate.getConfig());
+
+				return byteCount <= candidate.getAllocationByteCount();
+			}
+
+			// on earlier versions, the dimensions must match exactly and the
+			// inSampleSize must be 1
+			return candidate.getWidth() == targetOptions.outWidth
+					&& candidate.getHeight() == targetOptions.outHeight
+					&& targetOptions.inSampleSize == 1;
+		}
+
+		private int getBytesPerPixel(Config config) {
+			if (config == Config.ARGB_8888) {
+				return 4;
+			} else if (config == Config.RGB_565) {
+				return 2;
+			} else if (config == Config.ARGB_4444) {
+				return 2;
+			} else if (config == Config.ALPHA_8) {
+				return 1;
+			}
+
+			return 1;
 		}
 	}
 
@@ -124,6 +192,7 @@ public class ManageBitmapMemory {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 	}
 
+	// --Use an existing bitmap
 	public static Bitmap decodeSampledBitmapFromFile(String fileName,
 			int reqWidth, int reqHeight, ImageCache cache) {
 		final BitmapFactory.Options options = new BitmapFactory.Options();
