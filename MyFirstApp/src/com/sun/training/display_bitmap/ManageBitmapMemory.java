@@ -6,9 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.util.LruCache;
+
+import com.example.android.displayingbitmaps.util.RecyclingBitmapDrawable;
 
 public class ManageBitmapMemory {
 
@@ -66,28 +70,88 @@ public class ManageBitmapMemory {
 	}
 
 	// -----Manage memory on Android 3.0 and higher-----
-	Set<SoftReference<Bitmap>> mReusableBitmaps;
-	private LruCache<String, BitmapDrawable> mMemoryCache;
+	class ImageCache {
+		Set<SoftReference<Bitmap>> mReusableBitmaps;
+		private LruCache<String, BitmapDrawable> mMemoryCache;
 
-	// --save a bitmap for later use
-	public void init() {
-		// if we are running on Honeycomb or newer, create a synchronized
-		// HashSet of references to reusable bitmaps.
-		if (hasHoneycomb()) {
-			mReusableBitmaps = Collections
-					.synchronizedSet(new HashSet<SoftReference<Bitmap>>());
-		 }
-
-		mMemoryCache = new LruCache<String, BitmapDrawable>(1024 * 1024 * 4) {
-			@Override
-			protected void entryRemoved(boolean evicted, String key,
-					BitmapDrawable oldValue, BitmapDrawable newValue) {
-				super.entryRemoved(evicted, key, oldValue, newValue);
+		// --save a bitmap for later use
+		public void init() {
+			// if we are running on Honeycomb or newer, create a synchronized
+			// HashSet of references to reusable bitmaps.
+			if (hasHoneycomb()) {
+				mReusableBitmaps = Collections
+						.synchronizedSet(new HashSet<SoftReference<Bitmap>>());
 			}
-		};
+
+			mMemoryCache = new LruCache<String, BitmapDrawable>(1024 * 1024 * 4) {
+				// notify the removed entry that is no longer being cached.
+				@Override
+				protected void entryRemoved(boolean evicted, String key,
+						BitmapDrawable oldValue, BitmapDrawable newValue) {
+					if (RecyclingBitmapDrawable.class.isInstance(oldValue)) {
+						// the removed entry is a recycling drawable, so notify
+						// it
+						// that it has been removed from the memory cache.
+						((RecyclingBitmapDrawable) oldValue).setIsCached(false);
+					} else {
+						// the removed entry is a standard BitmapDrawable
+						if (hasHoneycomb()) {
+							// we're running on Honeycomb or later, so add the
+							// bitmap to a SoftReference set for possible use
+							// with
+							// inBitmap later
+							mReusableBitmaps.add(new SoftReference<Bitmap>(
+									oldValue.getBitmap()));
+						}
+					}
+				}
+			};
+		}
+
+		/**
+		 * iterates through the reusable bitmaps, looking for one to use for
+		 * inBitmap
+		 * 
+		 * @param options
+		 * @return
+		 */
+		public Bitmap getBitmapFromReusableSet(Options options) {
+
+		}
 	}
 
-	public boolean hasHoneycomb() {
+	public static boolean hasHoneycomb() {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 	}
+
+	public static Bitmap decodeSampledBitmapFromFile(String fileName,
+			int reqWidth, int reqHeight, ImageCache cache) {
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+
+		BitmapFactory.decodeFile(fileName, options);
+
+		// if we're running on Honeycomb or newer, try to use inBitmap
+		if (hasHoneycomb()) {
+			addInBitmapOptions(options, cache);
+		}
+
+		return BitmapFactory.decodeFile(fileName, options);
+	}
+
+	private static void addInBitmapOptions(Options options, ImageCache cache) {
+		// inBitmap only works with mutable drawable, so force the decoder to
+		// return mutable bitmaps.
+		options.inMutable = true;
+
+		if (cache != null) {
+			// try to find a bitmap to use for inBitmap
+			Bitmap inBitmap = cache.getBitmapFromReusableSet(options);
+			// if a suitable bitmap has been found, set it as the value of
+			// inBitmap.
+			if (inBitmap != null) {
+				options.inBitmap = inBitmap;
+			}
+		}
+	}
+
 }
