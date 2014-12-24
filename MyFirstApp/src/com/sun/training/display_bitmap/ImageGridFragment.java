@@ -26,9 +26,12 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
 	private ImageAadapter mAadapter;
 
 	public static final Integer[] imageResIds = new Integer[] {
-			R.drawable.img_zoro, R.drawable.img_flower,
-			R.drawable.ic_action_search, R.drawable.img_flower,
-			R.drawable.img_zoro, R.drawable.ic_action_search };
+			R.drawable.img_flower, R.drawable.img_flower,
+			R.drawable.img_flower, R.drawable.img_flower,
+			R.drawable.img_flower, R.drawable.img_flower,
+			R.drawable.img_flower, R.drawable.img_flower,
+			R.drawable.img_flower, R.drawable.img_flower,
+			R.drawable.img_flower, R.drawable.img_flower };
 
 	public ImageGridFragment() {
 	}
@@ -102,7 +105,7 @@ public class ImageGridFragment extends Fragment implements OnItemClickListener {
 			if (convertView == null) {
 				imageView = new ImageView(mContext);
 				imageView.setScaleType(ScaleType.CENTER_CROP);
-				imageView.setLayoutParams(new LayoutParams(
+				imageView.setLayoutParams(new GridView.LayoutParams(
 						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			} else {
 				imageView = (ImageView) convertView;

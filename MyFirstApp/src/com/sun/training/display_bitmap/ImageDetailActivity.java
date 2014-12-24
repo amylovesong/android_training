@@ -24,6 +24,9 @@ public class ImageDetailActivity extends FragmentActivity {
 	public static final Integer[] imageResIds = new Integer[] {
 			R.drawable.img_zoro, R.drawable.img_flower,
 			R.drawable.ic_action_search, R.drawable.img_flower,
+			R.drawable.img_zoro, R.drawable.ic_action_search,
+			R.drawable.img_zoro, R.drawable.img_flower,
+			R.drawable.ic_action_search, R.drawable.img_flower,
 			R.drawable.img_zoro, R.drawable.ic_action_search };
 
 	@Override
@@ -37,12 +40,11 @@ public class ImageDetailActivity extends FragmentActivity {
 			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(),
 					imageResIds.length);
 			mPager.setAdapter(mAdapter);
-
 			mPager.setCurrentItem(intent.getIntExtra(EXTRA_IMAGE, 0));
 		} else {
 			ImageGridFragment fragment = new ImageGridFragment();
 			getSupportFragmentManager().beginTransaction()
-					.add(fragment, "Grid").commit();
+					.add(R.id.fragment_container, fragment).commit();
 		}
 	}
 
