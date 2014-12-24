@@ -2,6 +2,7 @@ package com.sun.training.display_bitmap;
 
 import java.lang.ref.WeakReference;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import com.sun.training.R;
 
 public class ImageDetailActivity extends FragmentActivity {
+	public static final String EXTRA_IMAGE = "extra_image";
 
 	private ImagePagerAdapter mAdapter;
 	private ViewPager mPager;
@@ -29,10 +31,19 @@ public class ImageDetailActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.image_detail_pager);
 
-		mPager = (ViewPager) findViewById(R.id.pager);
-		mAdapter = new ImagePagerAdapter(getSupportFragmentManager(),
-				imageResIds.length);
-		mPager.setAdapter(mAdapter);
+		Intent intent = getIntent();
+		if (intent != null && intent.hasExtra(EXTRA_IMAGE)) {
+			mPager = (ViewPager) findViewById(R.id.pager);
+			mAdapter = new ImagePagerAdapter(getSupportFragmentManager(),
+					imageResIds.length);
+			mPager.setAdapter(mAdapter);
+
+			mPager.setCurrentItem(intent.getIntExtra(EXTRA_IMAGE, 0));
+		} else {
+			ImageGridFragment fragment = new ImageGridFragment();
+			getSupportFragmentManager().beginTransaction()
+					.add(fragment, "Grid").commit();
+		}
 	}
 
 	public void loadBitmap(int resId, ImageView imageView) {
