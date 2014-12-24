@@ -137,6 +137,8 @@
         <activity android:name="com.sun.training.display_bitmap.DisplayBitmapActivity" >
         </activity>
         <activity android:name="com.sun.training.display_bitmap.CacheBitmapActivity">
+        </activity>
+        <activity android:name="com.sun.training.display_bitmap.ImageDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
