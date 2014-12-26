@@ -32,8 +32,10 @@ public class Square {
 	// set color with red, green, blue and alpha(opacity) values
 	float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
 
-	private final String vertexShaderCode = "attribute vec4 vPosition;"
-			+ "void main(){" + " gl_Position = vPosition;" + "}";
+	private final String vertexShaderCode = "uniform mat4 uMVPMatrix;"
+			+ "attribute vec4 vPosition;" + "void main(){"
+			+ " gl_Position = vPosition * uMVPMatrix;" + "}";
+
 	private final String fragmentShaderCode = "precision mediump float;"
 			+ "uniform vec4 vColor;" + "void main(){"
 			+ " gl_FragColor = vColor;" + "}";
@@ -45,6 +47,7 @@ public class Square {
 	private int vertexStride = COORDS_PER_VERTEX * 4;// 4 are how many bytes in
 														// a float
 	private int vertexCount = squareCoords.length / COORDS_PER_VERTEX;
+	private int mMVPMatrixHandle;
 
 	public Square() {
 		ByteBuffer bb = ByteBuffer.allocateDirect(squareCoords.length * 4);
@@ -70,7 +73,7 @@ public class Square {
 		GLES20.glLinkProgram(mProgram);
 	}
 
-	public void draw() {
+	public void draw(float[] mvpMatrix) {
 		GLES20.glUseProgram(mProgram);
 		mPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
 		GLES20.glEnableVertexAttribArray(mPositionHandle);
@@ -80,6 +83,9 @@ public class Square {
 		// set color
 		mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 		GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+
+		mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
+		GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mvpMatrix, 0);
 
 		// GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, vertexCount);
 		GLES20.glDrawElements(GLES20.GL_TRIANGLES, drawOrder.length,

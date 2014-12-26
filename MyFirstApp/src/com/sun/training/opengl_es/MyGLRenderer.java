@@ -5,6 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
+import android.opengl.Matrix;
 import android.util.Log;
 
 public class MyGLRenderer implements Renderer {
@@ -13,6 +14,9 @@ public class MyGLRenderer implements Renderer {
 
 	private Triangle mTriangle;
 	private Square mSquare;
+	private float mProjectionMatrix[] = new float[16];
+	private float mViewMatrix[] = new float[16];
+	private float mMVPMatrix[] = new float[16];
 
 	@Override
 	public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -28,6 +32,10 @@ public class MyGLRenderer implements Renderer {
 	public void onSurfaceChanged(GL10 unused, int width, int height) {
 		Log.d(TAG, "onSurfaceChanged");
 		GLES20.glViewport(0, 0, width, height);
+
+		float ratio = (float) width / height;
+
+		Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
 	}
 
 	@Override
@@ -36,8 +44,14 @@ public class MyGLRenderer implements Renderer {
 		// redraw background color
 		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
-		// mTriangle.draw();
-		mSquare.draw();
+		// set the camera position
+		Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+
+		// calculate the projection and view transformation
+		Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
+
+		// mTriangle.draw(mMVPMatrix);
+		mSquare.draw(mMVPMatrix);
 	}
 
 }
