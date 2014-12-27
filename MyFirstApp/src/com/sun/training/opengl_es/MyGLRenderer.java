@@ -6,6 +6,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView.Renderer;
 import android.opengl.Matrix;
+import android.os.SystemClock;
 import android.util.Log;
 
 public class MyGLRenderer implements Renderer {
@@ -17,6 +18,7 @@ public class MyGLRenderer implements Renderer {
 	private float mProjectionMatrix[] = new float[16];
 	private float mViewMatrix[] = new float[16];
 	private float mMVPMatrix[] = new float[16];
+	private float mRotationMatrix[] = new float[16];
 
 	@Override
 	public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -50,8 +52,19 @@ public class MyGLRenderer implements Renderer {
 		// calculate the projection and view transformation
 		Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
-		// mTriangle.draw(mMVPMatrix);
-		mSquare.draw(mMVPMatrix);
+		float[] scratch = new float[16];
+		// create a rotation transformation for the triangle
+		long time = SystemClock.uptimeMillis() % 4000L;
+		float angle = 0.090f * ((int) time);
+		Matrix.setRotateM(mRotationMatrix, 0, angle, 0, 0, 1.0f);
+
+		// combine the rotation matrix with the projection and camera view
+		// Note that the mMVPMatrix factor *must be first* in order for the
+		// matrix multiplication product to be correct
+		Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
+
+		mTriangle.draw(scratch);
+		// mSquare.draw(scratch);
 	}
 
 }
