@@ -20,6 +20,8 @@ public class MyGLRenderer implements Renderer {
 	private float mMVPMatrix[] = new float[16];
 	private float mRotationMatrix[] = new float[16];
 
+	private volatile float mAngle;
+
 	@Override
 	public void onSurfaceCreated(GL10 unused, EGLConfig config) {
 		Log.d(TAG, "onSurfaceCreated");
@@ -53,18 +55,26 @@ public class MyGLRenderer implements Renderer {
 		Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
 		float[] scratch = new float[16];
-		// create a rotation transformation for the triangle
-		long time = SystemClock.uptimeMillis() % 4000L;
-		float angle = 0.090f * ((int) time);
-		Matrix.setRotateM(mRotationMatrix, 0, angle, 0, 0, 1.0f);
+		// --create a rotation transformation for the triangle
+		// long time = SystemClock.uptimeMillis() % 4000L;
+		// float angle = 0.090f * ((int) time);
+		Matrix.setRotateM(mRotationMatrix, 0, mAngle, 0, 0, 1.0f);
 
 		// combine the rotation matrix with the projection and camera view
 		// Note that the mMVPMatrix factor *must be first* in order for the
 		// matrix multiplication product to be correct
 		Matrix.multiplyMM(scratch, 0, mMVPMatrix, 0, mRotationMatrix, 0);
 
+		mSquare.draw(mMVPMatrix);
 		mTriangle.draw(scratch);
-		// mSquare.draw(scratch);
+	}
+
+	public float getAngle() {
+		return mAngle;
+	}
+
+	public void setAngle(float mAngle) {
+		this.mAngle = mAngle;
 	}
 
 }

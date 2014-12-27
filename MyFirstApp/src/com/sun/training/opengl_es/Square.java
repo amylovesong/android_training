@@ -14,23 +14,25 @@ public class Square {
 	static final int COORDS_PER_VERTEX = 3;
 	static float squareCoords[] = {// in counterclockwise order:
 	-0.5f, 0.5f, 0.0f,// top left
-			-0.5f, 0.0f, 0.0f,
+			// -0.5f, 0.0f, 0.0f,
 			-0.5f, -0.5f, 0.0f,// bottom left
-			0.0f, -0.5f, 0.0f,
+			// 0.0f, -0.5f, 0.0f,
 			0.5f, -0.5f, 0.0f,// bottom right
-			0.5f, 0.0f, 0.0f,
+			// 0.5f, 0.0f, 0.0f,
 			0.5f, 0.5f, 0.0f // top right
-			, 0.0f, 0.5f, 0.0f
-, 0.0f, 0.0f, 0.0f
+	// , 0.0f, 0.5f, 0.0f
+	// , 0.0f, 0.0f, 0.0f
 	};
 
-	private short drawOrder[] = { 1, 2, 8, 3, 4, 8, 5, 6, 8, 7, 0, 8 };// order
+	private short drawOrder[] = { 0, 1, 2, 0, 2, 3
+	// 1, 2, 8, 3, 4, 8, 5, 6, 8, 7, 0, 8
+	};// order
 																		// to
 																		// draw
 																		// vertices
 
 	// set color with red, green, blue and alpha(opacity) values
-	float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
+	float color[] = { 0.23671875f, 0.56953125f, 0.72265625f, 1.0f };
 
 	private final String vertexShaderCode = "uniform mat4 uMVPMatrix;"
 			+ "attribute vec4 vPosition;" + "void main(){"
