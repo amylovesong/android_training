@@ -21,5 +21,15 @@
     <string name="button_text_hide_the_action_bar">隐藏ActionBar</string>
     <string name="button_text_show_the_action_bar">显示ActionBar</string>
     <string name="button_text_go_overlay_activity">跳到浮层ActionBar页面</string>
+    
+    <string name="content">1. Create member variables for the views that you want to crossfade. 
+        You need these references later when modifying the views during the animation.\n
+		2. For the view that is being faded in, set its visibility to GONE. 
+		This prevents the view from taking up layout space and omits it from layout calculations, speeding up processing.\n
+		3. Cache the config_shortAnimTime system property in a member variable. 
+		This property defines a standard "short" duration for the animation. 
+		This duration is ideal for subtle animations or animations that occur very frequently. 
+		config_longAnimTime and config_mediumAnimTime are also available if you wish to use them.</string>
+    
 
 </resources>
