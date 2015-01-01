@@ -147,6 +147,10 @@
         
         <!-- Displaying Graphics with OpenGL ES -->
         <activity android:name="com.sun.training.opengl_es.OpenGLES20Activity">
+        </activity>
+        
+        <!-- Adding Animations -->
+        <activity android:name="com.sun.training.animation.CrossfadeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
