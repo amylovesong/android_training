@@ -151,6 +151,8 @@
         
         <!-- Adding Animations -->
         <activity android:name="com.sun.training.animation.CrossfadeActivity">
+        </activity>
+        <activity android:name="com.sun.training.animation.LayoutChangesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
