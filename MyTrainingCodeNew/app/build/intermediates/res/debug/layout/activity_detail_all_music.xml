@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+	<TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/tab_detail_all"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<Button
+	    android:id="@+id/btn_switch"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true"
+	    android:text="@string/button_text_hide_the_action_bar" />
+
+	<Button
+	    android:id="@+id/btn_go_overlay"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/btn_switch"
+	    android:layout_alignLeft="@id/btn_switch"
+	    android:text="@string/button_text_go_overlay_activity" />
+	
+</RelativeLayout>
+<!-- From: file:/Users/sunxiaoling/AndroidStudioProjects/android_training/MyTrainingCodeNew/app/src/main/res/layout/activity_detail_all_music.xml -->

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="translucence">#66000000</color>
+    
+    <color name="actionbar_background">#ff8800</color>
+    <color name="actionbar_text">#aa66cc</color>
+    
+    <color name="tab_unselected">#ffbb00</color>
+    <color name="tab_selected">#ff8833</color>
+    <color name="tab_unselected_focused">#ff8833</color>
+    <color name="tab_selected_focused">#ffbb00</color>
+    <color name="tab_unselected_pressed">#ff8800</color>
+    <color name="tab_selected_pressed">#ff8800</color>
+    
+</resources>
