@@ -11,5 +11,9 @@
     <color name="tab_selected_focused">#ffbb00</color>
     <color name="tab_unselected_pressed">#ff8800</color>
     <color name="tab_selected_pressed">#ff8800</color>
-    
+
+    <color name="color_00aaff">#00aaff</color>
+    <color name="color_33aa77">#33aa77</color>
+    <color name="color_ffaaaa">#ffaaaa</color>
+
 </resources>
