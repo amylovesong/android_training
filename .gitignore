@@ -8,5 +8,7 @@ gen/
 .gradle
 build
 
+*.iml
 .idea/
+
 local.properties
