@@ -1,5 +1,4 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:myfirstapp="http://schemas.android.com/apk/res-auto" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
     <!-- Search -->
 	<item android:id="@+id/action_search"
@@ -21,6 +20,6 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-	    myfirstapp:showAsAction="never" />
+	    android:showAsAction="never" />
 
 </menu>
