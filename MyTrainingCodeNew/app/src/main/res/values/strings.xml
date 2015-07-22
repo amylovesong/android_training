@@ -35,6 +35,9 @@
 		2. For the view that is being faded in, set its visibility to GONE. 
 		This prevents the view from taking up layout space and omits it from layout calculations, speeding up processing.
 		</string>
-    
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
