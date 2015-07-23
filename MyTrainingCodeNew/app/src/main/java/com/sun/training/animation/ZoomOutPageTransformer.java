@@ -15,7 +15,7 @@ public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
 
     @Override
     public void transformPage(View page, float position) {
-        Log.d(TAG, "transformPage page:" + page + " position:" + position);
+//        Log.d(TAG, "transformPage page:" + page + " position:" + position);
         int pageWidth = page.getWidth();
         int pageHeight = page.getHeight();
 
