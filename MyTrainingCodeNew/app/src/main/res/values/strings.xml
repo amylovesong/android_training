@@ -36,8 +36,7 @@
 		This prevents the view from taking up layout space and omits it from layout calculations, speeding up processing.
 		</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="img_content" >img_content</string>
 
 
 </resources>
