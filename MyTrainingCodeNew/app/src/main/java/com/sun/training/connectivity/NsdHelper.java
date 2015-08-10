@@ -24,11 +24,11 @@ public class NsdHelper {
     private NsdManager.ResolveListener mResolveListener;
     private NsdServiceInfo mService;
 
-    public NsdHelper(Context context){
+    public NsdHelper(Context context) {
         this.mContext = context;
     }
 
-    public void initialize(){
+    public void initialize() {
         initializeRegistrationListener();
         initializeDiscoveryListener();
         initializeResolveListener();
@@ -44,11 +44,11 @@ public class NsdHelper {
         mNsdManager.registerService(serviceInfo, NsdManager.PROTOCOL_DNS_SD, mRegistrationListener);
     }
 
-    public void discoverServices(){
+    public void discoverServices() {
         mNsdManager.discoverServices(SERVICE_TYPE, NsdManager.PROTOCOL_DNS_SD, mDiscoveryListener);
     }
 
-    public void tearDown(){
+    public void tearDown() {
         mNsdManager.unregisterService(mRegistrationListener);
         mNsdManager.stopServiceDiscovery(mDiscoveryListener);
     }

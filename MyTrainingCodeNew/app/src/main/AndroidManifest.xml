@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <uses-feature
         android:name="android.hardware.nfc"
@@ -30,10 +32,10 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <!--
-     <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture"/>
-        <supports-gl-texture android:name="GL_OES_compressed_paletted_texture"/>
-    -->
+
+    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture"/>
+    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -153,11 +155,16 @@
         <activity android:name=".animation.CardFlipActivity">
         </activity>
         <activity android:name=".animation.ZoomActivity">
+        </activity>
+
+        <!--Connecting Devices Wirelessly-->
+        <activity android:name=".connectivity.WiFiDirectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

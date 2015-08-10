@@ -38,5 +38,7 @@
 
     <string name="img_content" >img_content</string>
 
+    <string name="fragment_name_device_list">DeviceListFragment</string>
+
 
 </resources>
