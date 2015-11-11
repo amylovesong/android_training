@@ -163,18 +163,35 @@
         </activity>
         <!-- Performing Network Operations -->
         <activity android:name=".connectivity.HttpExampleActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".connectivity.SettingsActivity"
             android:label="@string/title_activity_settings" >
             <intent-filter>
-                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Guide: Services -->
+        <service
+            android:name=".service.ExampleService"
+            android:exported="false" >
+        </service>
+        <service android:name=".service.HelloIntentService" >
+        </service>
+        <service
+            android:name=".service.HelloService"
+            android:exported="false" >
+        </service>
+
+        <activity
+            android:name=".service.ClientActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

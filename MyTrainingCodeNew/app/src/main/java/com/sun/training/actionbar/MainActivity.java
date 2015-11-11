@@ -52,11 +52,11 @@ public class MainActivity extends Activity {
 		// setup action bar for tabs
 		actionBar = getActionBar();
 		actionBar.setTitle("Action Bar");
-		// 注掉后无法显示出Tab
+		// 娉ㄦ帀鍚庢棤娉曟樉绀哄嚭Tab
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		// 是否显示title
+		// 鏄惁鏄剧ずtitle
 		// actionBar.setDisplayShowTitleEnabled(false);
-		// Up button 是否可用
+		// Up button 鏄惁鍙敤
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		tab = actionBar
