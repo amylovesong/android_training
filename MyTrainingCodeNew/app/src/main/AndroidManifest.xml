@@ -186,8 +186,26 @@
             android:exported="false" >
         </service>
 
+        <activity android:name=".service.ClientActivity" >
+        </activity>
+
+        <service
+            android:name=".service.LocalService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
+        <activity android:name=".service.BindingActivity" >
+        </activity>
+
+        <service
+            android:name=".service.MessengerService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
         <activity
-            android:name=".service.ClientActivity" >
+            android:name=".service.ActivityMessenger" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
