@@ -173,6 +173,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".connectivity.NetworkActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- Guide: Services -->
         <service
@@ -187,7 +194,7 @@
         </service>
         <activity android:name=".service.ClientActivity" >
         </activity>
-
+        <!-- Guide: Bound Services -->
         <service
             android:name=".service.LocalService"
             android:enabled="true"
@@ -202,19 +209,15 @@
         </service>
         <activity android:name=".service.ActivityMessenger" >
         </activity>
-
+        <!-- Guide: AIDL -->
         <activity
-            android:name=".service.Binding"
-            android:label="@string/title_activity_binding" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".service.Binding" >
         </activity>
         <service android:name="com.sun.training.service.RemoteService"
             android:process=":my.remote.service" >
         </service>
+
+
     </application>
 
 </manifest>
