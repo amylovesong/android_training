@@ -185,7 +185,6 @@
             android:name=".service.HelloService"
             android:exported="false" >
         </service>
-
         <activity android:name=".service.ClientActivity" >
         </activity>
 
@@ -194,24 +193,28 @@
             android:enabled="true"
             android:exported="false" >
         </service>
-
         <activity android:name=".service.BindingActivity" >
         </activity>
-
         <service
             android:name=".service.MessengerService"
             android:enabled="true"
             android:exported="false" >
         </service>
+        <activity android:name=".service.ActivityMessenger" >
+        </activity>
 
         <activity
-            android:name=".service.ActivityMessenger" >
+            android:name=".service.Binding"
+            android:label="@string/title_activity_binding" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name="com.sun.training.service.RemoteService"
+            android:process=":my.remote.service" >
+        </service>
     </application>
 
 </manifest>
