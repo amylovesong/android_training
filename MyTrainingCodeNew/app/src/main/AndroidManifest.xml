@@ -174,11 +174,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".connectivity.NetworkActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- Guide: Services -->
@@ -217,6 +212,16 @@
             android:process=":my.remote.service" >
         </service>
 
+        <!-- Volley -->
+        <activity
+            android:name=".connectivity.VolleyActivity"
+            android:label="@string/title_activity_volley">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

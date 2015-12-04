@@ -42,6 +42,7 @@
     <string name="title_activity_client">ClientActivity</string>
     <string name="title_activity_binding">BindingActivity</string>
     <string name="title_activity_activity_messenger">ActivityMessenger</string>
+    <string name="title_activity_volley">VolleyActivity</string>
 
 
 </resources>
