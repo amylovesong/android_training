@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.sun.training.service.Binding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="show message..."
+        android:id="@+id/callback"
+        android:layout_marginTop="118dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bind Service"
+        android:id="@+id/bind"
+        android:layout_below="@+id/callback"
+        android:layout_alignLeft="@+id/callback"
+        android:layout_alignStart="@+id/callback"
+        android:layout_marginTop="38dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unbind Service"
+        android:id="@+id/unbind"
+        android:layout_below="@+id/bind"
+        android:layout_alignLeft="@+id/bind"
+        android:layout_alignStart="@+id/bind" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kill the service process"
+        android:id="@+id/kill"
+        android:layout_below="@+id/unbind"
+        android:layout_alignLeft="@+id/unbind"
+        android:layout_alignStart="@+id/unbind" />
+</RelativeLayout>
