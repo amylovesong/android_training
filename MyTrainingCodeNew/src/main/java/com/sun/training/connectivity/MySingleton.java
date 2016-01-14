@@ -37,11 +37,24 @@ public class MySingleton {
         });
     }
 
-    public static synchronized MySingleton getInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new MySingleton(context);
-        }
-        return mInstance;
+//    public static MySingleton getInstance(Context context) {
+//        if (mInstance == null) {
+//            synchronized (MySingleton.class) {
+//                if (mInstance == null) {
+//                    mInstance = new MySingleton(context);
+//                }
+//            }
+//        }
+//        return mInstance;
+//    }
+
+    public static MySingleton getInstance(Context context) {
+        mCtx = context;
+        return SingletonHolder.instance;
+    }
+
+    private static class SingletonHolder{
+        private static MySingleton instance = new MySingleton(mCtx);
     }
 
     public RequestQueue getReqeustQueue() {
