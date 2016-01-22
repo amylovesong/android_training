@@ -1,31 +1,42 @@
 package com.sun.training.connectivity;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.LruCache;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.sun.training.R;
 
+import org.json.JSONObject;
+
 public class VolleyActivity extends Activity {
-    public static final String TAG = "MyTag";
+    public static final String TAG_LOG = VolleyActivity.class.getSimpleName();
+    public static final String TAG_REQUEST = "MyTag";
+
     StringRequest stringRequest;
     RequestQueue mRequestQueue;
+    ImageLoader mImageLoader;
+
     TextView textView;
+    ImageView imageView;
+    NetworkImageView mNetworkImageView;
+    TextView textJSON;
+
+    String textUrl = "http://www.google.com";
+    String imageUrl = "http://img3.100bt.com/upload/ttq/20130414/1365913496030.jpg";
+    String imageUrl2 = "http://img3.100bt.com/upload/ttq/20130414/1365913555700.jpg";
+    String jsonUrl = "http://test.tv.api.3g.youku.com/tv/pay/show/price/info?showid=cc15e98a962411de83b1&pid=69b81504767483cf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +44,25 @@ public class VolleyActivity extends Activity {
         setContentView(R.layout.activity_volley);
 
         textView = (TextView) findViewById(R.id.text);
+        imageView = (ImageView) findViewById(R.id.image);
+        mNetworkImageView = (NetworkImageView) findViewById(R.id.networkImageView);
+        textJSON = (TextView) findViewById(R.id.text_json);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        request();
+//        request();
+//        loadImage();
+        loadImageByImageLoader();
+        requestJSON();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         if(mRequestQueue != null){
-            mRequestQueue.cancelAll(TAG);
+            mRequestQueue.cancelAll(TAG_REQUEST);
         }
     }
 
@@ -59,9 +76,8 @@ public class VolleyActivity extends Activity {
 
         mRequestQueue = MySingleton.getInstance(getApplicationContext()).getReqeustQueue();
 
-        String url = "http://www.google.com";
 
-        stringRequest = new StringRequest(Request.Method.GET, url,
+        stringRequest = new StringRequest(Request.Method.GET, textUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -73,9 +89,52 @@ public class VolleyActivity extends Activity {
                 textView.setText("That didn't work!");
             }
         });
-        stringRequest.setTag(TAG);
+        stringRequest.setTag(TAG_REQUEST);
 //        mRequestQueue.add(stringRequest);
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void loadImage(){
+        ImageRequest imageRequest = new ImageRequest(imageUrl, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                imageView.setImageBitmap(bitmap);
+            }
+        }, 0, 0, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG_LOG, "loadImage onErrorResponse " + error.getMessage());
+            }
+        });
+        imageRequest.setTag(TAG_REQUEST);
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(imageRequest);
+    }
+
+    private void loadImageByImageLoader(){
+        mImageLoader = MySingleton.getInstance(getApplicationContext()).getImageLoader();
+        mImageLoader.get(imageUrl, ImageLoader.getImageListener(imageView, R.drawable.img_placeholder,
+                R.drawable.img_placeholder));
+
+        mNetworkImageView.setImageUrl(imageUrl2, mImageLoader);
+    }
+
+    private void requestJSON(){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                jsonUrl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                textJSON.setText("Response: " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG_LOG, "requestJSON onErrorResponse: " + error);
+            }
+        });
+        jsonObjectRequest.setTag(TAG_REQUEST);
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
 }
