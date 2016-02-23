@@ -55,7 +55,8 @@ public class VolleyActivity extends Activity {
 //        request();
 //        loadImage();
         loadImageByImageLoader();
-        requestJSON();
+//        requestJSON();
+        requestGson();
     }
 
     @Override
@@ -135,6 +136,43 @@ public class VolleyActivity extends Activity {
         jsonObjectRequest.setTag(TAG_REQUEST);
 
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void requestGson(){
+        GsonRequest<PriceInfo> gsonRequest = new GsonRequest<>(jsonUrl, PriceInfo.class,
+                null, new Response.Listener<PriceInfo>() {
+            @Override
+            public void onResponse(PriceInfo response) {
+                textJSON.setText("PriceInfo:\n" + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG_LOG, "requestGson onErrorResponse: " + error);
+            }
+        });
+        gsonRequest.setTag(TAG_REQUEST);
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(gsonRequest);
+    }
+
+    public static class PriceInfo{
+        public String status;
+        public Result results;
+
+        public class Result{
+            public String pk_odshow;
+            public int try_type;
+            public int pay_type;
+            public int paid;
+            public String try_time;
+        }
+
+        @Override
+        public String toString() {
+            return "status: " + status + "\ntry_type: " + results.try_type
+                    + "\npay_type: " + results.pay_type;
+        }
     }
 
 }
